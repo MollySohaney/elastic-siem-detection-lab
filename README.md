@@ -158,7 +158,7 @@ sequence by host.id, source.ip, user.name with maxspan=20m
 | Persistence | Account Manipulation | T1098 |
 | Persistence | Scheduled Task / Cron | T1053 |
 
-Aligned with :contentReference[oaicite:0]{index=0} techniques.
+Reference: https://attack.mitre.org
 
 ---
 
@@ -318,10 +318,6 @@ elastic-siem-detection-lab/
 │   ├── ssh_bruteforce.md
 │   ├── privilege_escalation.md
 │   └── persistence_simulation.md
-│
-├── dashboards/
-│   ├── dashboard_export.ndjson
-│   └── screenshots/
 │
 ├── screenshots/
 │   ├── alerts/
