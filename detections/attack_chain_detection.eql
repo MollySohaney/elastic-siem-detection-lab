@@ -1,0 +1,56 @@
+/*
+Rule Name: Multi-Stage SSH Attack Chain Detection
+Author: Molly Sohaney
+Description:
+Detects a full SSH compromise attack chain including:
+- Failed SSH authentication attempts
+- Successful authentication
+- Privilege escalation
+- Persistence activity
+
+MITRE ATT&CK:
+- T1110 - Brute Force
+- T1078 - Valid Accounts
+- T1548 - Privilege Escalation
+- T1098 - Account Manipulation
+- T1053 - Scheduled Task / Cron
+*/
+
+sequence by host.id, source.ip, user.name with maxspan=20m
+
+  /* Stage 1 — Failed SSH Logins */
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  /* Stage 2 — Successful Login */
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "success"
+  ]
+
+  /* Stage 3 — Privilege Escalation */
+  [process where
+      event.dataset == "auditd.log" and
+      process.name in ("sudo", "su")
+  ]
+
+  /* Stage 4 — Persistence */
+  [process where
+      event.dataset == "auditd.log" and
+      (
+        process.name in ("useradd", "usermod", "crontab") or
+        process.args : ("*authorized_keys*", "*cron*")
+      )
+  ]
