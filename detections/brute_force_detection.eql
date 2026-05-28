@@ -1,0 +1,33 @@
+/*
+Rule Name: SSH Brute Force Followed by Successful Login
+Author: Molly Sohaney
+Description:
+Detects multiple failed SSH login attempts followed by a successful login
+from the same source IP and username within a short time window.
+
+MITRE ATT&CK:
+- T1110 - Brute Force
+- T1078 - Valid Accounts
+*/
+
+sequence by source.ip, user.name with maxspan=10m
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "failure"
+  ]
+
+  [authentication where
+      event.dataset == "system.auth" and
+      event.outcome == "success"
+  ]
