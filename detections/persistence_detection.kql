@@ -1,0 +1,24 @@
+/*
+Rule Name: Linux Persistence Activity Detection
+Author: Molly Sohaney
+Description:
+Detects potential Linux persistence techniques including:
+- User creation
+- Group modification
+- Cron job modification
+- SSH authorized_keys modification
+
+MITRE ATT&CK:
+- T1098 - Account Manipulation
+- T1053 - Scheduled Task / Cron
+*/
+
+event.dataset : "auditd.log" and
+(
+  process.name : ("useradd", "usermod", "crontab") or
+  process.args : (
+    "*authorized_keys*",
+    "*cron*",
+    "*systemd*"
+  )
+)
