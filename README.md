@@ -319,13 +319,11 @@ elastic-siem-detection-lab/
 │   ├── privilege_escalation.md
 │   └── persistence_simulation.md
 │
-├── screenshots/
-│   ├── alerts/
-│   ├── kibana/
-│   └── attack_timeline/
-│
-└── reports/
-    └── detection_engineering_report.pdf
+└── screenshots/
+    ├── alerts/
+    ├── kibana/
+    └── attack_timeline/
+
 ```
 
 ---
